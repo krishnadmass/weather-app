@@ -1,31 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWeather } from '../../store/fetchWeather';
-import { fetchCities } from '../../api/placeSuggestion';
-import { useClickOutside } from '../../hooks/useClickOutside';
 import { LocationIcon, SearchIcon } from './styled';
-import Suggestion from './Suggestion';
 import './styles.css';
 import { AppStore } from '../../store/store';
 import { getCurrentTheme } from '../../utils/storeUtils';
 
+
+// search component for searching sity and suggestions
 const Search = () => {
   const dispatch = useDispatch();
-  const suggestionRef = useRef(null);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
   const darkMode = useSelector((state: AppStore) => state.app.darkMode);
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    if (!searchTerm) {
-      return;
-    }
-    setShowSuggestions(true);
-    setSuggestions([fetchCities(searchTerm)]);
-  }, [searchTerm]);
 
-  useClickOutside(suggestionRef, () => setShowSuggestions(false));
+  const onClick = () => {
+    dispatch(fetchWeather(searchTerm));
+  };
+
 
   const onSearchInputChanged = (e: any) => {
     setSearchTerm(e.target.value);
@@ -45,22 +37,23 @@ const Search = () => {
       }}
       className='searchElement'>
       <SearchIcon />
-      <form className='textField-form'>
-        <label>
           <input
-          autoComplete='off'
+            autoComplete='off'
             style={
               {
                 backgroundColor: getCurrentTheme(darkMode).panelBgColor,
                 color: getCurrentTheme(darkMode).searchInput.color
               }
             }
+            onKeyDown={(e): void => {
+              if (e.key === 'Enter') {
+              onClick()
+              }
+            }}
             className='textField-input'
             type="text" name="name" value={searchTerm}
             onChange={onSearchInputChanged}
           />
-        </label>
-      </form>
       <button
         className='location-button'
         onClick={() => {
@@ -73,24 +66,6 @@ const Search = () => {
       >
         <LocationIcon />
       </button>
-      {showSuggestions && (
-        <div ref={suggestionRef}
-          style={{
-            backgroundColor: getCurrentTheme(darkMode).searchSuggestion.backgroundColor
-          }}
-          className="search-result"
-        >
-          {suggestions?.slice(0, 6)?.map((s, i) => (
-            <Suggestion
-              key={i}
-              label={s}
-              hideSuggestionFn={() => {
-                setShowSuggestions(false);
-              }}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 };

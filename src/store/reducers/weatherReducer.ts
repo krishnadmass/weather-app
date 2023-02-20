@@ -1,12 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ExtendedForecastData, WeatherData } from '../../api/types';
 import { fetchWeather, transformWeatherData } from '../fetchWeather';
+import { WeatherState } from './interface';
 
-export type WeatherState = {
-  weatherData: WeatherData;
-  extendedWeatherData: ExtendedForecastData[];
-  isError: boolean;
-}
 
 const initialState: WeatherState = {
   weatherData: {

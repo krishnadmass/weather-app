@@ -6,9 +6,10 @@ import Search from '../components/Search';
 import Spinner from '../components/ui/Spinner/Spinner';
 import CurrentWeather from '../components/CurrentWeather';
 import { AppStore } from '../store/store';
+import Snackbar from '../components/Snackbar';
 
 // Home Page to get all the details by initial state
-const Home = () => {
+const Home = ({setIsOpen}: {setIsOpen: Function}) => {
   const { loading } = useSelector((state: AppStore) => ({
     loading: state.app.isLoading,
   }));
@@ -18,7 +19,7 @@ const Home = () => {
       {loading && <Spinner />}
       <Header />
       <Search />
-      <CurrentWeather />
+      <CurrentWeather  setIsOpen={setIsOpen}/>
       <Forecast />
     </>
   );

@@ -23,7 +23,11 @@ import {
 } from './styled';
 import Temperature from './Temperature';
 
-const CurrentWeather: React.FC = () => {
+interface CurrentWeatherProps {
+  setIsOpen: Function;
+}
+
+const CurrentWeather: React.FC<CurrentWeatherProps> = ({ setIsOpen}: CurrentWeatherProps ) => {
   const { weather, degreeType, isInitial, isError } = useSelector((store: AppStore) => ({
     weather: store.weather.weatherData,
     degreeType: store.app.tempUnit,
@@ -34,6 +38,7 @@ const CurrentWeather: React.FC = () => {
 
   useEffect(() => {
     if (isError) {
+      setIsOpen(true)
       console.log('Cannot load weather for this place');
     }
   }, [isError]);

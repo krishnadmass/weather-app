@@ -34,7 +34,7 @@ export const lightTheme: Theme = {
   backgroundImage: lightBg,
   backgroundGradient: {
     color1: '#F9FFFF',
-    color2: '#38C8E6',
+    color2: '#00CDFE',
   },
   panelBgColor: '#FFFFFF',
   panelTitleColor: '#727E8E',
