@@ -33,7 +33,7 @@ git clone https://github.com/krishnadmass/weather-app.git
 ```
 
 ```bash
-cd reactweather
+cd weather-app
 yarn
 yarn start
 ```
