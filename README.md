@@ -1,4 +1,4 @@
-# React Weather
+# Weather Application
 
 ![Screenshot from 2023-02-20 12-30-54](https://user-images.githubusercontent.com/36821523/220080245-b4bb20d0-d673-4e08-a540-c749d1cd7a06.png)
 
